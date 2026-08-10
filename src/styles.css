@@ -132,13 +132,767 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+/* ============================================================
+   CINEMATIC BIRTHDAY STORY — design system
+   ============================================================ */
+
+@theme inline {
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-hand: "Caveat", cursive;
+  --color-gold: var(--gold);
+  --color-blush: var(--blush);
+  --color-burgundy: var(--burgundy);
+}
+
+:root {
+  --cine-deep: oklch(0.11 0.018 320);
+  --cine-panel: oklch(0.17 0.028 350);
+  --ink: oklch(0.95 0.012 80);
+  --muted-ink: oklch(0.68 0.02 60);
+  --gold: oklch(0.82 0.13 82);
+  --gold-soft: oklch(0.9 0.08 85);
+  --blush: oklch(0.82 0.09 5);
+  --burgundy: oklch(0.42 0.14 15);
+  --burgundy-light: oklch(0.56 0.17 15);
+  --glow-gold: 0 0 40px color-mix(in oklab, var(--gold) 35%, transparent);
+  --glass-bg: color-mix(in oklab, var(--cine-panel) 55%, transparent);
+  --glass-border: color-mix(in oklab, var(--gold) 22%, transparent);
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
   }
 
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    background-color: var(--cine-deep);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--burgundy-light) 60%, transparent);
+    color: var(--ink);
   }
 }
+
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.005em;
+}
+
+@utility font-hand {
+  font-family: var(--font-hand);
+}
+
+@utility gold-text {
+  background: linear-gradient(100deg, var(--gold-soft), var(--gold) 40%, var(--blush));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: 0 18px 50px -24px rgb(0 0 0 / 0.9);
+}
+
+/* --- atmosphere ------------------------------------------------------- */
+
+@utility vignette {
+  background: radial-gradient(
+    circle at 50% 45%,
+    transparent 30%,
+    color-mix(in oklab, black 60%, transparent) 78%,
+    black 100%
+  );
+}
+
+@utility grain {
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 0.7s steps(3) infinite;
+}
+
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-2%, 1%); }
+  100% { transform: translate(1%, -2%); }
+}
+
+@utility lens-flare {
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--gold) 22%, transparent) 0%,
+    color-mix(in oklab, var(--burgundy) 16%, transparent) 38%,
+    transparent 70%
+  );
+  filter: blur(30px);
+  animation: flare-pulse 9s ease-in-out infinite;
+}
+
+@keyframes flare-pulse {
+  0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+  50% { opacity: 0.85; transform: translateX(-50%) scale(1.12); }
+}
+
+@utility floater {
+  position: absolute;
+  bottom: -10vh;
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--gold);
+  box-shadow: var(--glow-gold);
+  animation: float-up linear infinite;
+}
+
+@keyframes float-up {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(-115vh) translateX(30px); opacity: 0; }
+}
+
+/* --- typography / chrome ---------------------------------------------- */
+
+@utility scene-label {
+  display: inline-block;
+  font-size: 0.6rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--muted-ink);
+  border-bottom: 1px solid color-mix(in oklab, var(--gold) 30%, transparent);
+  padding-bottom: 0.5rem;
+}
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  filter: blur(6px);
+  transition:
+    opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1.4s ease;
+  &.is-in {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@utility drift {
+  animation: drift-soft 7s ease-in-out infinite;
+}
+
+@keyframes drift-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@utility enter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 2rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  border: 1px solid color-mix(in oklab, var(--gold) 45%, transparent);
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--burgundy) 35%, transparent),
+    transparent
+  );
+  box-shadow: 0 0 28px -6px color-mix(in oklab, var(--gold) 45%, transparent);
+  transition: all 0.4s ease;
+  &:hover {
+    color: var(--ink);
+    transform: translateY(-2px);
+    box-shadow: 0 0 46px -6px color-mix(in oklab, var(--gold) 65%, transparent);
+  }
+  &:active { transform: scale(0.98); }
+}
+
+@utility ghost-btn {
+  font-size: 0.66rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted-ink);
+  transition: color 0.3s ease;
+  &:hover { color: var(--gold); }
+}
+
+@utility ember {
+  position: absolute;
+  top: 22%;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--gold-soft);
+  box-shadow: 0 0 30px 10px color-mix(in oklab, var(--gold) 40%, transparent);
+  animation: ember-breathe 3.4s ease-in-out infinite;
+}
+
+@keyframes ember-breathe {
+  0%, 100% { opacity: 0.5; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.25); }
+}
+
+/* --- scene 03 memory cards -------------------------------------------- */
+
+@utility memory-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-height: 11rem;
+  padding: 1.1rem;
+  text-align: left;
+  border-radius: 1.25rem;
+  background: var(--glass-bg);
+  border: 1px solid color-mix(in oklab, var(--gold) 14%, transparent);
+  backdrop-filter: blur(14px);
+  transition: all 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  &:hover { transform: translateY(-4px); border-color: color-mix(in oklab, var(--gold) 40%, transparent); }
+  &.is-open {
+    background: linear-gradient(160deg, color-mix(in oklab, var(--burgundy) 55%, transparent), var(--glass-bg));
+    border-color: color-mix(in oklab, var(--gold) 55%, transparent);
+    box-shadow: 0 0 40px -14px color-mix(in oklab, var(--gold) 60%, transparent);
+  }
+  & .card-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--gold-soft);
+  }
+  & .card-body {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: color-mix(in oklab, var(--ink) 80%, transparent);
+  }
+  & .card-hint {
+    margin-top: auto;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted-ink);
+  }
+}
+
+/* --- scene 04 timeline ------------------------------------------------- */
+
+@utility timeline {
+  position: relative;
+  display: grid;
+  gap: 1.6rem;
+  padding-left: 1.5rem;
+  border-left: 1px solid color-mix(in oklab, var(--gold) 25%, transparent);
+}
+
+@utility timeline-item {
+  position: relative;
+  list-style: none;
+}
+
+@utility timeline-dot {
+  position: absolute;
+  left: -1.87rem;
+  top: 0.35rem;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--gold);
+  box-shadow: var(--glow-gold);
+}
+
+/* --- scene 05 filmstrip ------------------------------------------------ */
+
+@utility filmstrip {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0 max(1.5rem, calc((100vw - 48rem) / 2)) 1.5rem;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+@utility film-frame {
+  position: relative;
+  flex: 0 0 min(78vw, 20rem);
+  scroll-snap-align: center;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  border: 1px solid color-mix(in oklab, var(--gold) 18%, transparent);
+  background: black;
+  aspect-ratio: 3 / 4;
+  box-shadow: 0 30px 60px -30px black;
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.92;
+  }
+  & .film-caption {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--ink);
+    text-shadow: 0 2px 18px black;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.75), transparent 55%);
+  }
+}
+
+@utility kenburns {
+  animation: kenburns 18s ease-in-out infinite alternate;
+}
+
+@keyframes kenburns {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.14) translate(-2%, -2%); }
+}
+
+/* --- scene 06 happy cards ---------------------------------------------- */
+
+@utility happy-card {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 1.4rem;
+  border-radius: 1.25rem;
+  background: var(--glass-bg);
+  border: 1px solid color-mix(in oklab, var(--gold) 14%, transparent);
+  backdrop-filter: blur(14px);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  &:hover { transform: translateY(-3px); }
+  & .happy-body {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: color-mix(in oklab, var(--ink) 78%, transparent);
+    transition: all 0.6s ease;
+  }
+  &.is-open {
+    border-color: color-mix(in oklab, var(--gold) 45%, transparent);
+    box-shadow: 0 0 40px -16px color-mix(in oklab, var(--gold) 60%, transparent);
+    & .happy-body { max-height: 12rem; opacity: 1; margin-top: 0.8rem; }
+  }
+}
+
+/* --- scene 07 / 17 lighting -------------------------------------------- */
+
+@utility soft-light {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: 70vmin;
+  height: 70vmin;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, color-mix(in oklab, var(--burgundy) 30%, transparent), transparent 65%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+@utility single-light {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: var(--gold-soft);
+  box-shadow: 0 0 60px 20px color-mix(in oklab, var(--gold) 35%, transparent);
+  animation: ember-breathe 4s ease-in-out infinite;
+}
+
+/* --- scene 08 letter ---------------------------------------------------- */
+
+@utility envelope {
+  position: relative;
+  width: min(20rem, 80vw);
+  aspect-ratio: 3 / 2;
+  border-radius: 0.8rem;
+  background: linear-gradient(160deg, #f3e7d6, #e2cdb2);
+  box-shadow: 0 30px 60px -25px black, var(--glow-gold);
+  overflow: hidden;
+  & .envelope-flap {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 62%;
+    background: linear-gradient(180deg, #e8d6bd, #d8bf9e);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+  }
+  & .envelope-seal {
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: #f6e9d8;
+    background: radial-gradient(circle at 35% 30%, var(--burgundy-light), var(--burgundy));
+    box-shadow: 0 6px 20px -6px black;
+  }
+}
+
+@utility letter-paper {
+  width: min(36rem, 92vw);
+  padding: 2rem 1.6rem;
+  border-radius: 0.6rem;
+  background: linear-gradient(180deg, #fbf3e6, #f2e4cf);
+  box-shadow: 0 40px 80px -30px black;
+}
+
+@utility caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: #6b3a2a;
+  animation: blink 1s steps(2) infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* --- scene 09 doors ------------------------------------------------------ */
+
+@utility door {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 13rem;
+  padding: 1.2rem;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  perspective: 900px;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--burgundy) 30%, transparent), var(--glass-bg));
+  border: 1px solid color-mix(in oklab, var(--gold) 20%, transparent);
+  & .door-panel {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    transform-origin: left center;
+    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
+  }
+  & .door-inside {
+    padding: 0.5rem;
+    font-size: 0.86rem;
+    line-height: 1.7;
+    color: color-mix(in oklab, var(--ink) 85%, transparent);
+    opacity: 0;
+    transition: opacity 0.8s ease 0.4s;
+  }
+  &.is-open {
+    box-shadow: 0 0 50px -18px color-mix(in oklab, var(--gold) 70%, transparent);
+    & .door-panel { transform: rotateY(-105deg); opacity: 0; }
+    & .door-inside { opacity: 1; }
+  }
+}
+
+/* --- scene 10 secret room ------------------------------------------------ */
+
+@utility secret-room {
+  width: 100%;
+  padding: 3rem 1.5rem;
+  border-radius: 1.75rem;
+  background: radial-gradient(circle at 50% 0%, color-mix(in oklab, var(--burgundy) 25%, transparent), transparent 70%);
+  border: 1px solid color-mix(in oklab, var(--gold) 12%, transparent);
+  transition: all 1s ease;
+  &.is-unlocked {
+    border-color: color-mix(in oklab, var(--gold) 35%, transparent);
+    box-shadow: inset 0 0 80px -40px color-mix(in oklab, var(--gold) 60%, transparent);
+  }
+}
+
+@utility tiny-star {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--gold-soft);
+  box-shadow: var(--glow-gold);
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(0.7); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* --- scene 11 reasons ---------------------------------------------------- */
+
+@utility reason-card {
+  display: flex;
+  height: 100%;
+  min-height: 8rem;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 1.1rem;
+  border-radius: 1.1rem;
+  background: var(--glass-bg);
+  border: 1px solid color-mix(in oklab, var(--gold) 14%, transparent);
+  backdrop-filter: blur(12px);
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+  &:hover {
+    transform: translateY(-6px) rotateX(6deg) rotateY(-4deg);
+    box-shadow: 0 30px 60px -30px color-mix(in oklab, var(--gold) 60%, transparent);
+  }
+  & .reason-index {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+  }
+}
+
+/* --- scene 13 countdown --------------------------------------------------- */
+
+@utility count-number {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 22vw, 10rem);
+  line-height: 1;
+  color: var(--ink);
+  text-shadow: 0 0 60px color-mix(in oklab, var(--burgundy-light) 80%, transparent);
+  animation: count-pop 1.1s ease-out forwards;
+}
+
+@keyframes count-pop {
+  0% { opacity: 0; transform: scale(1.5); filter: blur(12px); }
+  25% { opacity: 1; transform: scale(1); filter: blur(0); }
+  100% { opacity: 0; transform: scale(0.85); filter: blur(4px); }
+}
+
+@utility blackout {
+  position: absolute;
+  inset: 0;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.4s ease;
+  &.is-on { opacity: 1; }
+}
+
+/* --- scene 14 birthday ---------------------------------------------------- */
+
+@utility birthday-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 12vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  text-shadow: 0 0 60px color-mix(in oklab, var(--gold) 45%, transparent);
+}
+
+@utility finale-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 10vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: 0.04em;
+  background: linear-gradient(120deg, var(--gold-soft), var(--blush) 50%, var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 40px color-mix(in oklab, var(--gold) 35%, transparent));
+}
+
+@utility glow-burst {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  width: 90vmin;
+  height: 90vmin;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: radial-gradient(circle, color-mix(in oklab, var(--gold) 20%, transparent), transparent 62%);
+  filter: blur(35px);
+  animation: flare-pulse 7s ease-in-out infinite;
+}
+
+@utility confetti {
+  position: absolute;
+  top: -6vh;
+  width: 6px;
+  height: 14px;
+  border-radius: 2px;
+  opacity: 0.85;
+  animation: confetti-fall linear infinite;
+}
+
+@keyframes confetti-fall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.9; }
+  100% { transform: translateY(115vh) rotate(540deg); opacity: 0; }
+}
+
+/* --- scene 15 gift --------------------------------------------------------- */
+
+@utility giftbox {
+  position: relative;
+  width: 9rem;
+  height: 8rem;
+  border-radius: 0.8rem;
+  background: linear-gradient(160deg, var(--burgundy-light), var(--burgundy));
+  box-shadow: 0 30px 60px -25px black, 0 0 60px -12px color-mix(in oklab, var(--gold) 60%, transparent);
+  animation: drift-soft 4s ease-in-out infinite;
+  & .gift-lid {
+    position: absolute;
+    inset: -0.9rem -0.6rem auto -0.6rem;
+    height: 2.2rem;
+    border-radius: 0.6rem;
+    background: linear-gradient(160deg, #7d2036, var(--burgundy));
+  }
+  & .gift-ribbon {
+    position: absolute;
+    left: 50%;
+    top: -1rem;
+    bottom: 0;
+    width: 1.1rem;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, var(--gold-soft), var(--gold));
+    box-shadow: var(--glow-gold);
+  }
+}
+
+@utility flash {
+  position: absolute;
+  inset: -20vh -50vw;
+  background: radial-gradient(circle, color-mix(in oklab, var(--gold) 70%, transparent), transparent 60%);
+  animation: flash-out 1.6s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes flash-out {
+  0% { opacity: 0.95; }
+  100% { opacity: 0; }
+}
+
+@utility gift-photos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+  & img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 0.9rem;
+    border: 1px solid color-mix(in oklab, var(--gold) 22%, transparent);
+    opacity: 0;
+    animation: photo-pop 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+@keyframes photo-pop {
+  0% { opacity: 0; transform: scale(0.7) rotate(-6deg); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* --- scene 16 film --------------------------------------------------------- */
+
+@utility film-stage {
+  position: relative;
+  width: min(40rem, 92vw);
+  aspect-ratio: 4 / 5;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  background: black;
+  border: 1px solid color-mix(in oklab, var(--gold) 18%, transparent);
+  box-shadow: 0 40px 90px -40px black;
+  & .film-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.08);
+    transition: opacity 1.8s ease, transform 6s ease;
+  }
+  & .film-slide.is-active { opacity: 1; transform: scale(1); }
+  & .film-stage-caption {
+    position: absolute;
+    left: 1.2rem;
+    bottom: 1.2rem;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    text-shadow: 0 2px 20px black;
+  }
+}
+
+@media (min-width: 640px) {
+  .film-stage { aspect-ratio: 16 / 10; }
+}
+
+@utility collage {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  width: min(40rem, 92vw);
+}
+
+@utility collage-item {
+  overflow: hidden;
+  border-radius: 0.8rem;
+  border: 1px solid color-mix(in oklab, var(--gold) 14%, transparent);
+  & img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  &:hover img { transform: scale(1.08); }
+}
+
+/* --- scene 18 hearts -------------------------------------------------------- */
+
+@utility hearts {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+@utility heart {
+  position: absolute;
+  bottom: -5vh;
+  font-size: 1rem;
+  color: color-mix(in oklab, var(--blush) 75%, transparent);
+  animation: float-up 18s linear infinite;
+}
+
