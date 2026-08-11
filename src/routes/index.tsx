@@ -15,17 +15,23 @@ import {
   SceneSecretRoom,
 } from "@/components/story/ActTwo";
 import {
-  SceneBirthday,
   SceneCountdown,
   SceneFilm,
-  SceneFinale,
-  SceneFinalMessage,
   SceneGift,
 } from "@/components/story/ActThree";
+import {
+  SceneBeforeYou,
+  SceneForYou,
+  SceneHowItStarted,
+  SceneNotTheEnd,
+  SceneThenYouHappened,
+  SceneThingsYouDontKnow,
+} from "@/components/story/Chapters";
 import { her, him } from "@/story/content";
 
-const title = `For ${her} — A Cinematic Birthday Story`;
-const description = `An interactive romantic film made by ${him} for ${her}'s birthday: 19 scenes of memories, secrets, a love letter and a surprise.`;
+const title = `The Girl Who Didn't Know She Was My Favorite Chapter — For ${her}`;
+const description = `A cinematic interactive story written by ${him} for ${her}: chapters, memories, secrets and a birthday she'll remember.`;
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -52,27 +58,31 @@ function Index() {
       <MusicPlayer started={entered} />
 
       <h1 className="sr-only">
-        Happy Birthday {her} — a cinematic interactive story by {him}
+        The Girl Who Didn't Know She Was My Favorite Chapter — a story for {her} by {him}
       </h1>
 
       <div className={`relative z-10 transition-opacity duration-[1500ms] ${entered ? "opacity-100" : "opacity-0"}`}>
+        <SceneHowItStarted />
         <SceneCuriosity />
         <SceneDiscovery />
+        <SceneBeforeYou />
         <SceneChapterOne />
+        <SceneThenYouHappened />
         <SceneMontage />
         <SceneHappy />
         <ScenePause />
+        <SceneThingsYouDontKnow />
         <SceneLetter />
         <SceneDoors onSecret={() => setSecretUnlocked(true)} />
         <SceneSecretRoom unlocked={secretUnlocked} />
         <SceneReasons />
         <ScenePromise />
         <SceneCountdown />
-        <SceneBirthday />
+        <SceneForYou />
         <SceneGift />
         <SceneFilm />
-        <SceneFinalMessage />
-        <SceneFinale />
+        <SceneNotTheEnd />
+
         <footer className="relative z-10 pb-28 text-center text-[0.65rem] uppercase tracking-[0.3em] text-[var(--muted-ink)]">
           made with love by {him}
         </footer>
