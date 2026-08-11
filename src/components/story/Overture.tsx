@@ -23,12 +23,11 @@ export function Overture({ onEnter }: { onEnter: () => void }) {
   }, [step, nameStep]);
 
   const enter = () => {
-    const a = getAmbience();
-    a.heartbeat();
-    a.start();
+    getAmbience().heartbeat();
     setLeaving(true);
     window.setTimeout(onEnter, 1200);
   };
+
 
   return (
     <div
