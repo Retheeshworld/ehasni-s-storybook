@@ -1,46 +1,70 @@
-import { useEffect, useState } from "react";
-import { getAmbience } from "@/lib/audio";
+import { useEffect, useRef, useState } from "react";
+import themeAsset from "@/assets/theme.mp3.asset.json";
+
+const fmt = (s: number) => {
+  if (!Number.isFinite(s)) return "0:00";
+  const m = Math.floor(s / 60);
+  const r = Math.floor(s % 60);
+  return `${m}:${r.toString().padStart(2, "0")}`;
+};
 
 export function MusicPlayer({ started }: { started: boolean }) {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
-  const [t, setT] = useState(0);
+  const [time, setTime] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   useEffect(() => {
     if (!started) return;
-    getAmbience().start();
-    setPlaying(true);
+    const a = audioRef.current;
+    if (!a) return;
+    a.volume = 0.55;
+    void a.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
   }, [started]);
-
-  useEffect(() => {
-    if (!playing) return;
-    const id = window.setInterval(() => setT((v) => (v + 1) % 180), 1000);
-    return () => window.clearInterval(id);
-  }, [playing]);
 
   if (!started) return null;
 
   const toggle = () => {
-    const a = getAmbience();
+    const a = audioRef.current;
+    if (!a) return;
     if (playing) {
-      a.stop();
+      a.pause();
       setPlaying(false);
     } else {
-      a.start();
-      setPlaying(true);
+      void a.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
     }
   };
 
   const toggleMute = () => {
+    const a = audioRef.current;
+    if (!a) return;
     const next = !muted;
+    a.muted = next;
     setMuted(next);
-    getAmbience().setMuted(next);
   };
 
-  const pct = (t / 180) * 100;
+  const pct = duration ? (time / duration) * 100 : 0;
+
+  const seek = (e: React.MouseEvent<HTMLDivElement>) => {
+    const a = audioRef.current;
+    if (!a || !duration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    a.currentTime = ((e.clientX - rect.left) / rect.width) * duration;
+  };
 
   return (
     <div className="fixed bottom-4 left-1/2 z-50 w-[min(92vw,22rem)] -translate-x-1/2">
+      <audio
+        ref={audioRef}
+        src={themeAsset.url}
+        loop
+        preload="auto"
+        onTimeUpdate={(e) => setTime(e.currentTarget.currentTime)}
+        onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+      />
       <div className="glass flex items-center gap-3 rounded-full px-3 py-2">
         <button
           onClick={toggle}
@@ -55,14 +79,21 @@ export function MusicPlayer({ started }: { started: boolean }) {
         </button>
         <div className="min-w-0 flex-1">
           <p className="truncate text-[0.65rem] uppercase tracking-[0.28em] text-[var(--muted-ink)]">
-            Our theme
+            Kannaana Kanne — our theme
           </p>
-          <div className="mt-1 h-[3px] w-full overflow-hidden rounded-full bg-white/10">
+          <div
+            onClick={seek}
+            role="presentation"
+            className="mt-1 h-[6px] w-full cursor-pointer overflow-hidden rounded-full bg-white/10"
+          >
             <div
-              className="h-full rounded-full bg-gradient-to-r from-[var(--burgundy)] via-[var(--gold)] to-[var(--blush)] transition-[width] duration-1000 ease-linear"
-              style={{ width: `${playing ? pct : 0}%` }}
+              className="h-full rounded-full bg-gradient-to-r from-[var(--burgundy)] via-[var(--gold)] to-[var(--blush)]"
+              style={{ width: `${pct}%` }}
             />
           </div>
+          <p className="mt-1 text-[0.6rem] tabular-nums tracking-widest text-[var(--muted-ink)]">
+            {fmt(time)} / {fmt(duration)}
+          </p>
         </div>
         <button
           onClick={toggleMute}
