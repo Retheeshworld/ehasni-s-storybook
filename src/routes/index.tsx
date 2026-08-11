@@ -15,17 +15,23 @@ import {
   SceneSecretRoom,
 } from "@/components/story/ActTwo";
 import {
-  SceneBirthday,
   SceneCountdown,
   SceneFilm,
-  SceneFinale,
-  SceneFinalMessage,
   SceneGift,
 } from "@/components/story/ActThree";
+import {
+  SceneBeforeYou,
+  SceneForYou,
+  SceneHowItStarted,
+  SceneNotTheEnd,
+  SceneThenYouHappened,
+  SceneThingsYouDontKnow,
+} from "@/components/story/Chapters";
 import { her, him } from "@/story/content";
 
-const title = `For ${her} — A Cinematic Birthday Story`;
-const description = `An interactive romantic film made by ${him} for ${her}'s birthday: 19 scenes of memories, secrets, a love letter and a surprise.`;
+const title = `The Girl Who Didn't Know She Was My Favorite Chapter — For ${her}`;
+const description = `A cinematic interactive story written by ${him} for ${her}: chapters, memories, secrets and a birthday she'll remember.`;
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
