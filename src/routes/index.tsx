@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Atmosphere } from "@/components/story/Atmosphere";
 import { Overture } from "@/components/story/Overture";
 import { MusicPlayer } from "@/components/story/MusicPlayer";
