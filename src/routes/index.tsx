@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Atmosphere } from "@/components/story/Atmosphere";
 import { Overture } from "@/components/story/Overture";
 import { MusicPlayer } from "@/components/story/MusicPlayer";
@@ -85,7 +85,12 @@ function Index() {
 
         <footer className="relative z-10 pb-28 text-center text-[0.65rem] uppercase tracking-[0.3em] text-[var(--muted-ink)]">
           made with love by {him}
+          <br />
+          <Link to="/creator" className="mt-4 inline-block opacity-50 transition hover:opacity-100">
+            creator panel
+          </Link>
         </footer>
+
       </div>
     </main>
   );
