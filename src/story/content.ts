@@ -52,15 +52,31 @@ export const reasons = [
   "Simply… You.",
 ];
 
-/** SCENE 05 / 16 — photos. Replace files in /public/images/ to change them. */
+/** SCENE 05 / 16 — photos (real memories, CDN-hosted). */
+import m01 from "@/assets/memory-01.jpg.asset.json";
+import m02 from "@/assets/memory-02.jpg.asset.json";
+import m03 from "@/assets/memory-03.jpg.asset.json";
+import m04 from "@/assets/memory-04.jpg.asset.json";
+import m05 from "@/assets/memory-05.jpg.asset.json";
+import m06 from "@/assets/memory-06.jpg.asset.json";
+import m07 from "@/assets/memory-07.jpg.asset.json";
+import m08 from "@/assets/memory-08.jpg.asset.json";
+import m09 from "@/assets/memory-09.jpg.asset.json";
+import m10 from "@/assets/memory-010.jpg.asset.json";
+
 export const photos = [
-  { src: "/images/memory-01.jpg", caption: "One moment." },
-  { src: "/images/memory-02.jpg", caption: "One smile." },
-  { src: "/images/memory-03.jpg", caption: "One night I still think about." },
-  { src: "/images/memory-04.jpg", caption: "One quiet evening." },
-  { src: "/images/memory-05.jpg", caption: "One ordinary day that wasn't." },
-  { src: "/images/memory-06.jpg", caption: "One memory I never want to forget." },
+  { src: m01.url, caption: "One moment." },
+  { src: m02.url, caption: "One smile." },
+  { src: m03.url, caption: "One evening at the temple." },
+  { src: m04.url, caption: "One night I still think about." },
+  { src: m05.url, caption: "By the water." },
+  { src: m06.url, caption: "One ordinary day that wasn't." },
+  { src: m07.url, caption: "That silly afternoon." },
+  { src: m08.url, caption: "Just us, being us." },
+  { src: m09.url, caption: "The rose in your hair." },
+  { src: m10.url, caption: "One memory I never want to forget." },
 ];
+
 
 /** SCENE 08 — the letter */
 export const letter = `Dear ${her},
