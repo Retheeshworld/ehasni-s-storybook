@@ -73,6 +73,14 @@ import m17 from "@/assets/memory-27.jpg.asset.json";
 import m18 from "@/assets/memory-28.jpg.asset.json";
 import m19 from "@/assets/memory-29.jpg.asset.json";
 import m20 from "@/assets/memory-30.jpg.asset.json";
+import m21 from "@/assets/memory-31.jpg.asset.json";
+import m22 from "@/assets/memory-32.jpg.asset.json";
+import m23 from "@/assets/memory-33.jpg.asset.json";
+import m24 from "@/assets/memory-34.jpg.asset.json";
+import m25 from "@/assets/memory-35.jpg.asset.json";
+import m26 from "@/assets/memory-36.jpg.asset.json";
+import m27 from "@/assets/memory-37.jpg.asset.json";
+import m28 from "@/assets/memory-38.jpg.asset.json";
 
 export const photos = [
   { src: m01.url, caption: "One moment." },
@@ -95,6 +103,14 @@ export const photos = [
   { src: m18.url, caption: "That peace-sign kind of happy." },
   { src: m19.url, caption: "Caught mid-laugh." },
   { src: m20.url, caption: "Us, and the stories behind us." },
+  { src: m21.url, caption: "Sunset at the rock garden." },
+  { src: m22.url, caption: "That look you give me." },
+  { src: m23.url, caption: "The little smile that ends every argument." },
+  { src: m24.url, caption: "A quiet afternoon in the green." },
+  { src: m25.url, caption: "Effortlessly you." },
+  { src: m26.url, caption: "Good morning, favourite person." },
+  { src: m27.url, caption: "Home is wherever this is." },
+  { src: m28.url, caption: "A moment only the mirror saw." },
 ];
 
 
