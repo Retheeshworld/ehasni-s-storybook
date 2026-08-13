@@ -943,3 +943,189 @@
   color: var(--ink);
   background: linear-gradient(180deg, transparent, rgb(0 0 0 / 0.75));
 }
+
+/* ── OPEN THEM, ONE BY ONE ─────────────────────────────── */
+.hearts-stage {
+  position: relative;
+  width: 100%;
+  min-height: 60svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  transition: filter 900ms ease, transform 1200ms ease;
+}
+.hearts-stage.is-opening { filter: blur(3px) brightness(0.55); transform: scale(1.02); }
+.hearts-stage.is-final::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(circle at 50% 45%, color-mix(in oklab, var(--gold) 16%, transparent), transparent 62%),
+    rgb(0 0 0 / 0.72);
+  animation: fade-in 1200ms ease both;
+  pointer-events: none;
+}
+.dust-mote {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--gold-soft);
+  opacity: 0.5;
+  box-shadow: 0 0 10px 2px color-mix(in oklab, var(--gold) 45%, transparent);
+  animation: dust-float linear infinite;
+}
+@keyframes dust-float {
+  0% { transform: translate3d(0, 12px, 0) scale(0.7); opacity: 0; }
+  25% { opacity: 0.7; }
+  100% { transform: translate3d(14px, -70px, 0) scale(1.1); opacity: 0; }
+}
+.progress-pill {
+  font-size: 0.65rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  border: 1px solid color-mix(in oklab, var(--gold) 30%, transparent);
+  border-radius: 999px;
+  padding: 0.4rem 1.1rem;
+}
+.hearts-row {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem 1.75rem;
+}
+.heart-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transition: transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 600ms ease;
+}
+.heart-btn:disabled { cursor: default; }
+.heart-shape {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 82px;
+  height: 82px;
+}
+.heart-body {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, var(--burgundy-light, var(--burgundy)), var(--burgundy));
+  clip-path: path("M41 76C41 76 4 54.5 4 29.5C4 15.4 15.2 6 27 6C34.2 6 39 10.5 41 14C43 10.5 47.8 6 55 6C66.8 6 78 15.4 78 29.5C78 54.5 41 76 41 76Z");
+  box-shadow: 0 0 0 transparent;
+  transition: filter 500ms ease;
+}
+.heart-num {
+  position: relative;
+  z-index: 2;
+  transform: translateY(2px);
+  font-family: var(--font-display, inherit);
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
+  color: var(--gold-soft);
+}
+.heart-caption {
+  font-size: 0.58rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted-ink);
+}
+.heart-btn.is-locked { filter: grayscale(0.6) brightness(0.42); opacity: 0.55; }
+.heart-btn.is-opened { filter: brightness(0.7); opacity: 0.75; }
+.heart-btn.is-opened .heart-caption { color: color-mix(in oklab, var(--gold) 55%, transparent); }
+.heart-btn.is-ready .heart-body {
+  filter: drop-shadow(0 0 22px color-mix(in oklab, var(--gold) 55%, transparent));
+  animation: heart-beat 2s ease-in-out infinite;
+}
+.heart-btn.is-ready .heart-caption { color: var(--gold-soft); }
+.heart-btn.is-ready.is-last .heart-body {
+  background: linear-gradient(160deg, var(--gold-soft), var(--burgundy));
+  filter: drop-shadow(0 0 42px color-mix(in oklab, var(--gold) 85%, transparent));
+  animation-duration: 1.3s;
+}
+.heart-btn.is-ready:hover { transform: translateY(-6px) scale(1.06); }
+.heart-btn.is-ready:hover .heart-body {
+  filter: drop-shadow(0 0 46px color-mix(in oklab, var(--gold) 80%, transparent));
+  animation-duration: 0.9s;
+}
+.heart-btn.is-bursting { transform: scale(1.7); filter: brightness(1.6); }
+@keyframes heart-beat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.12); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.08); }
+  56% { transform: scale(1); }
+}
+.heart-sparks { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 400ms ease; }
+.heart-btn.is-ready:hover .heart-sparks { opacity: 1; }
+.heart-sparks i {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--gold-soft);
+  animation: spark-rise 2.2s ease-in-out infinite;
+}
+.heart-sparks i:nth-child(1) { margin-left: -22px; }
+.heart-sparks i:nth-child(2) { margin-left: -12px; }
+.heart-sparks i:nth-child(3) { margin-left: 0; }
+.heart-sparks i:nth-child(4) { margin-left: 10px; }
+.heart-sparks i:nth-child(5) { margin-left: 20px; }
+.heart-sparks i:nth-child(6) { margin-left: 28px; }
+@keyframes spark-rise {
+  0% { transform: translateY(6px) scale(0.6); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translateY(-46px) scale(1); opacity: 0; }
+}
+.letter-glow {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 520px;
+  max-width: 110%;
+  height: 320px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, color-mix(in oklab, var(--gold) 26%, transparent), transparent 70%);
+  filter: blur(10px);
+  pointer-events: none;
+  animation: fade-in 1400ms ease both;
+}
+.heart-card {
+  position: relative;
+  margin: 0 auto;
+  max-width: 34rem;
+  padding: 2.6rem 1.6rem 2.2rem;
+  border-radius: 1.4rem;
+  background: var(--glass-bg);
+  border: 1px solid color-mix(in oklab, var(--gold) 26%, transparent);
+  backdrop-filter: blur(18px) saturate(130%);
+  box-shadow: 0 40px 80px -40px black, 0 0 70px -26px color-mix(in oklab, var(--gold) 60%, transparent);
+}
+@media (min-width: 640px) { .heart-card { padding: 3rem 2.6rem 2.6rem; } }
+.heart-card-num {
+  position: absolute;
+  top: -0.9rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.25rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.6rem;
+  letter-spacing: 0.32em;
+  color: var(--gold-soft);
+  background: color-mix(in oklch, var(--cine-deep) 92%, black);
+  border: 1px solid color-mix(in oklab, var(--gold) 34%, transparent);
+}
+.final-veil .heart-card { border-color: color-mix(in oklab, var(--gold) 55%, transparent); }
+@media (prefers-reduced-motion: reduce) {
+  .heart-btn.is-ready .heart-body, .dust-mote, .heart-sparks i { animation: none; }
+}

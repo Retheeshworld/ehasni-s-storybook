@@ -27,6 +27,7 @@ import {
   SceneThenYouHappened,
   SceneThingsYouDontKnow,
 } from "@/components/story/Chapters";
+import { SceneFiveHearts } from "@/components/story/FiveHearts";
 import { her, him } from "@/story/content";
 
 const title = `The Girl Who Didn't Know She Was My Favorite Chapter — For ${her}`;
@@ -77,6 +78,7 @@ function Index() {
         <SceneSecretRoom unlocked={secretUnlocked} />
         <SceneReasons />
         <ScenePromise />
+        <SceneFiveHearts />
         <SceneCountdown />
         <SceneForYou />
         <SceneGift />
