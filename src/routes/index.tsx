@@ -77,6 +77,7 @@ function Index() {
         <SceneSecretRoom unlocked={secretUnlocked} />
         <SceneReasons />
         <ScenePromise />
+        <SceneFiveHearts />
         <SceneCountdown />
         <SceneForYou />
         <SceneGift />
