@@ -103,6 +103,14 @@ export const photos = [
   { src: m18.url, caption: "That peace-sign kind of happy." },
   { src: m19.url, caption: "Caught mid-laugh." },
   { src: m20.url, caption: "Us, and the stories behind us." },
+  { src: m21.url, caption: "Sunset at the rock garden." },
+  { src: m22.url, caption: "That look you give me." },
+  { src: m23.url, caption: "The little smile that ends every argument." },
+  { src: m24.url, caption: "A quiet afternoon in the green." },
+  { src: m25.url, caption: "Effortlessly you." },
+  { src: m26.url, caption: "Good morning, favourite person." },
+  { src: m27.url, caption: "Home is wherever this is." },
+  { src: m28.url, caption: "A moment only the mirror saw." },
 ];
 
 
