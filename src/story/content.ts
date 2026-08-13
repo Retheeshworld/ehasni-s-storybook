@@ -73,6 +73,14 @@ import m17 from "@/assets/memory-27.jpg.asset.json";
 import m18 from "@/assets/memory-28.jpg.asset.json";
 import m19 from "@/assets/memory-29.jpg.asset.json";
 import m20 from "@/assets/memory-30.jpg.asset.json";
+import m21 from "@/assets/memory-31.jpg.asset.json";
+import m22 from "@/assets/memory-32.jpg.asset.json";
+import m23 from "@/assets/memory-33.jpg.asset.json";
+import m24 from "@/assets/memory-34.jpg.asset.json";
+import m25 from "@/assets/memory-35.jpg.asset.json";
+import m26 from "@/assets/memory-36.jpg.asset.json";
+import m27 from "@/assets/memory-37.jpg.asset.json";
+import m28 from "@/assets/memory-38.jpg.asset.json";
 
 export const photos = [
   { src: m01.url, caption: "One moment." },
