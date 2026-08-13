@@ -63,6 +63,16 @@ import m07 from "@/assets/memory-07.jpg.asset.json";
 import m08 from "@/assets/memory-08.jpg.asset.json";
 import m09 from "@/assets/memory-09.jpg.asset.json";
 import m10 from "@/assets/memory-010.jpg.asset.json";
+import m11 from "@/assets/memory-19.jpg.asset.json";
+import m12 from "@/assets/memory-22.jpg.asset.json";
+import m13 from "@/assets/memory-23.jpg.asset.json";
+import m14 from "@/assets/memory-24.jpg.asset.json";
+import m15 from "@/assets/memory-25.jpg.asset.json";
+import m16 from "@/assets/memory-26.jpg.asset.json";
+import m17 from "@/assets/memory-27.jpg.asset.json";
+import m18 from "@/assets/memory-28.jpg.asset.json";
+import m19 from "@/assets/memory-29.jpg.asset.json";
+import m20 from "@/assets/memory-30.jpg.asset.json";
 
 export const photos = [
   { src: m01.url, caption: "One moment." },
@@ -75,7 +85,18 @@ export const photos = [
   { src: m08.url, caption: "Just us, being us." },
   { src: m09.url, caption: "The rose in your hair." },
   { src: m10.url, caption: "One memory I never want to forget." },
+  { src: m11.url, caption: "That day at the temple, together." },
+  { src: m12.url, caption: "By the lake at night." },
+  { src: m13.url, caption: "A sideways little world of ours." },
+  { src: m14.url, caption: "Close enough to hear each other think." },
+  { src: m15.url, caption: "Resting on your shoulder." },
+  { src: m16.url, caption: "Matching, without planning it." },
+  { src: m17.url, caption: "Another temple, another memory." },
+  { src: m18.url, caption: "That peace-sign kind of happy." },
+  { src: m19.url, caption: "Caught mid-laugh." },
+  { src: m20.url, caption: "Us, and the stories behind us." },
 ];
+
 
 
 /** SCENE 08 — the letter */
