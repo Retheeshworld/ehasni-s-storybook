@@ -204,7 +204,7 @@ export function SceneFiveHearts() {
                 ))}
               </div>
             )}
-            <p className="progress-pill">❤️ {unlocked + (reading !== null ? 1 : 0)} / 5</p>
+            <p className="progress-pill">❤️ {unlocked + 1} / 5</p>
             <div className="hearts-row">
               {letters.map((l, i) => {
                 const state = i < unlocked ? "opened" : i === unlocked ? "ready" : "locked";
