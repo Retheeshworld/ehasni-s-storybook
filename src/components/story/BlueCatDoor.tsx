@@ -3,7 +3,7 @@ import { Reveal } from "./Reveal";
 import { getAmbience } from "@/lib/audio";
 
 /** Original cute blue robotic-cat emoji character (not Doraemon). */
-function BlueCat({ excited }: { excited: boolean }) {
+export function BlueCat({ excited, size = 130 }: { excited?: boolean; size?: number }) {
   const [blink, setBlink] = useState(false);
   useEffect(() => {
     const id = window.setInterval(() => {
@@ -14,7 +14,7 @@ function BlueCat({ excited }: { excited: boolean }) {
   }, []);
 
   return (
-    <div className={`cat-wrap ${excited ? "is-excited" : ""}`} aria-hidden>
+    <div className={`cat-wrap ${excited ? "is-excited" : ""}`} style={{ width: size }} aria-hidden>
       <svg viewBox="0 0 200 210" className="cat-svg">
         <defs>
           <radialGradient id="catBlue" cx="35%" cy="28%">
@@ -75,9 +75,13 @@ function BlueCat({ excited }: { excited: boolean }) {
         <ellipse cx="80" cy="34" rx="26" ry="14" fill="url(#catGloss)" />
       </svg>
 
-      <span className="cat-heart" style={{ animationDelay: "0s" }}>❤</span>
-      <span className="cat-heart" style={{ animationDelay: "1.1s", left: "70%" }}>💙</span>
-      <span className="cat-heart" style={{ animationDelay: "2.2s", left: "30%" }}>❤</span>
+      {size >= 90 && (
+        <>
+          <span className="cat-heart" style={{ animationDelay: "0s" }}>❤</span>
+          <span className="cat-heart" style={{ animationDelay: "1.1s", left: "70%" }}>💙</span>
+          <span className="cat-heart" style={{ animationDelay: "2.2s", left: "30%" }}>❤</span>
+        </>
+      )}
     </div>
   );
 }

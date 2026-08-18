@@ -3,7 +3,7 @@ import { Reveal, Scene, SceneLabel } from "./Reveal";
 import { PhotoViewer } from "./PhotoViewer";
 import { getAmbience } from "@/lib/audio";
 import { doors, happyCards, letter, photos, reasons } from "@/story/content";
-import { BlueCatDoor } from "./BlueCatDoor";
+import { BlueCat, BlueCatDoor } from "./BlueCatDoor";
 
 /** SCENE 05 — THE MEMORY MONTAGE */
 export function SceneMontage() {
@@ -164,6 +164,7 @@ export function SceneDoors({ onSecret }: { onSecret: () => void }) {
               }}
             >
               <span className="door-panel">
+                <BlueCat size={58} excited={isOpen} />
                 <span className="text-2xl">🚪</span>
                 <span className="mt-2 block text-[0.65rem] uppercase tracking-[0.3em] text-[var(--muted-ink)]">
                   Door {d.n}
@@ -229,6 +230,7 @@ export function SceneReasons() {
         {reasons.map((r, i) => (
           <Reveal key={r} delay={i * 90} className={i === reasons.length - 1 ? "col-span-2 sm:col-span-3" : ""}>
             <div className="reason-card">
+              <BlueCat size={46} />
               <span className="reason-index">{String(i + 1).padStart(2, "0")}</span>
               <span className="font-display text-lg leading-snug">{r}</span>
             </div>
