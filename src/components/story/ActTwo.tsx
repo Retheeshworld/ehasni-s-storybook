@@ -3,6 +3,7 @@ import { Reveal, Scene, SceneLabel } from "./Reveal";
 import { PhotoViewer } from "./PhotoViewer";
 import { getAmbience } from "@/lib/audio";
 import { doors, happyCards, letter, photos, reasons } from "@/story/content";
+import { BlueCatDoor } from "./BlueCatDoor";
 
 /** SCENE 05 — THE MEMORY MONTAGE */
 export function SceneMontage() {
@@ -234,6 +235,12 @@ export function SceneReasons() {
           </Reveal>
         ))}
       </div>
+
+      <BlueCatDoor
+        line="One last door… this one is from Retheesh. ❤️"
+        doorLabel="A door from Retheesh"
+        message="Happy birthday, Ehasni. You are my favorite reason to smile — today and every chapter after this."
+      />
     </Scene>
   );
 }

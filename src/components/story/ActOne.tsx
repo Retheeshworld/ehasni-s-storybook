@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Reveal, Scene, SceneLabel } from "./Reveal";
 import { getAmbience } from "@/lib/audio";
 import { chapterOne, discoveryCards, her } from "@/story/content";
+import { BlueCatDoor } from "./BlueCatDoor";
 
 /** SCENE 02 — CURIOSITY */
 export function SceneCuriosity() {
@@ -69,6 +70,11 @@ export function SceneDiscovery() {
           );
         })}
       </div>
+
+      <BlueCatDoor
+        line="Hey Ehasni… there's something waiting behind this door. ❤️"
+        message="Behind every little door in this story, there's a piece of how much you mean to me."
+      />
 
       <div className={`mt-14 text-center transition-all duration-1000 ${all ? "opacity-100" : "translate-y-3 opacity-0"}`}>
         <p className="text-sm uppercase tracking-[0.3em] text-[var(--muted-ink)]">And this story has a name.</p>
