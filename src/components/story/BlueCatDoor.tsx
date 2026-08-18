@@ -139,7 +139,7 @@ export function BlueCatDoor({
       <div className="magic-door-row">
         {!open && (
           <div className="flex flex-col items-center">
-            <BlueCat excited={excited} />
+            <BlueCat excited={excited} mood={mood} />
             <p className="cat-bubble">{line}</p>
           </div>
         )}
