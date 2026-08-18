@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Reveal, Scene, SceneLabel } from "./Reveal";
 import { getAmbience } from "@/lib/audio";
 import { chapterOne, discoveryCards, her } from "@/story/content";
-import { BlueCatDoor } from "./BlueCatDoor";
+import { BlueCat, BlueCatDoor } from "./BlueCatDoor";
 
 /** SCENE 02 — CURIOSITY */
 export function SceneCuriosity() {
@@ -61,6 +61,7 @@ export function SceneDiscovery() {
               onClick={() => toggle(i)}
               className={`memory-card ${isOpen ? "is-open" : ""} ${i === 4 ? "col-span-2 sm:col-span-1" : ""}`}
             >
+              <BlueCat size={52} excited={isOpen} />
               <span className="card-title">{c.title}</span>
               <span className="card-body">
                 {isOpen ? c.back : c.front}
