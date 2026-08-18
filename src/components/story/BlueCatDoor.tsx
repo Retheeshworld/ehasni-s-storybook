@@ -2,19 +2,45 @@ import { useEffect, useState } from "react";
 import { Reveal } from "./Reveal";
 import { getAmbience } from "@/lib/audio";
 
+/** Emotional tones the cat can perform before a card opens. */
+export type CatMood = "moment" | "smile" | "conversation" | "memory" | "secret" | "surprise" | "love";
+
+const MOODS: Record<CatMood, { blink: number; hold: number; hearts: string[] }> = {
+  moment: { blink: 3600, hold: 160, hearts: ["❤", "💙", "❤"] },
+  smile: { blink: 2200, hold: 120, hearts: ["😊", "❤", "✨"] },
+  conversation: { blink: 2600, hold: 130, hearts: ["💬", "❤", "💬"] },
+  memory: { blink: 5200, hold: 260, hearts: ["✨", "💙", "✨"] },
+  secret: { blink: 6400, hold: 380, hearts: ["🤫", "💙", "✨"] },
+  surprise: { blink: 1400, hold: 90, hearts: ["🎉", "✨", "❤"] },
+  love: { blink: 3000, hold: 200, hearts: ["❤", "💗", "💙"] },
+};
+
 /** Original cute blue robotic-cat emoji character (not Doraemon). */
-export function BlueCat({ excited, size = 130 }: { excited?: boolean; size?: number }) {
+export function BlueCat({
+  excited,
+  size = 130,
+  mood = "moment",
+}: {
+  excited?: boolean;
+  size?: number;
+  mood?: CatMood;
+}) {
   const [blink, setBlink] = useState(false);
+  const cfg = MOODS[mood] ?? MOODS.moment;
   useEffect(() => {
     const id = window.setInterval(() => {
       setBlink(true);
-      window.setTimeout(() => setBlink(false), 160);
-    }, 3600);
+      window.setTimeout(() => setBlink(false), cfg.hold);
+    }, cfg.blink);
     return () => window.clearInterval(id);
-  }, []);
+  }, [cfg.blink, cfg.hold]);
 
   return (
-    <div className={`cat-wrap ${excited ? "is-excited" : ""}`} style={{ width: size }} aria-hidden>
+    <div
+      className={`cat-wrap cat-mood-${mood} ${excited ? "is-excited" : ""}`}
+      style={{ width: size }}
+      aria-hidden
+    >
       <svg viewBox="0 0 200 210" className="cat-svg">
         <defs>
           <radialGradient id="catBlue" cx="35%" cy="28%">
