@@ -1129,3 +1129,112 @@
 @media (prefers-reduced-motion: reduce) {
   .heart-btn.is-ready .heart-body, .dust-mote, .heart-sparks i { animation: none; }
 }
+
+/* --- blue robotic-cat + magical door --------------------------------- */
+
+.magic-door-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+}
+
+.cat-wrap {
+  position: relative;
+  width: 130px;
+  animation: cat-bounce 2.6s ease-in-out infinite;
+  filter: drop-shadow(0 14px 22px rgb(0 0 0 / 0.45));
+}
+.cat-wrap.is-excited { animation: cat-pop 0.6s ease-out; }
+.cat-svg { width: 100%; height: auto; }
+.cat-arm { transform-origin: 150px 150px; animation: cat-wave 1.6s ease-in-out infinite; }
+
+.cat-bubble {
+  margin-top: 0.75rem;
+  max-width: 15rem;
+  border-radius: 1rem;
+  padding: 0.65rem 0.95rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--ink);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+}
+
+.cat-heart {
+  position: absolute;
+  left: 50%;
+  bottom: 12%;
+  font-size: 0.9rem;
+  opacity: 0;
+  animation: cat-heart-rise 3.4s ease-in-out infinite;
+}
+
+.magic-door {
+  position: relative;
+  width: min(240px, 70vw);
+  min-height: 230px;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glow-gold);
+}
+.magic-door-panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform-origin: left center;
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.9s ease;
+  background: linear-gradient(160deg,
+    color-mix(in oklab, var(--burgundy) 70%, transparent),
+    color-mix(in oklab, var(--cine-panel) 90%, transparent));
+}
+.magic-knob {
+  margin-top: 0.9rem;
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--gold);
+  box-shadow: var(--glow-gold);
+}
+.magic-door.is-open .magic-door-panel { transform: perspective(900px) rotateY(-108deg); opacity: 0; }
+.magic-door-inside {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 230px;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--ink);
+  opacity: 0;
+  transition: opacity 0.8s ease 0.4s;
+}
+.magic-door.is-open .magic-door-inside { opacity: 1; }
+
+@keyframes cat-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes cat-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.14) rotate(-4deg); }
+  100% { transform: scale(1); }
+}
+@keyframes cat-wave {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-26deg); }
+}
+@keyframes cat-heart-rise {
+  0% { opacity: 0; transform: translate(-50%, 0) scale(0.6); }
+  25% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -90px) scale(1.1); }
+}
