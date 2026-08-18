@@ -116,10 +116,12 @@ export function BlueCatDoor({
   line,
   doorLabel = "Open the magical door",
   message,
+  mood = "love",
 }: {
   line: string;
   doorLabel?: string;
   message: string;
+  mood?: CatMood;
 }) {
   const [open, setOpen] = useState(false);
   const [excited, setExcited] = useState(false);
