@@ -75,9 +75,13 @@ export function BlueCat({ excited, size = 130 }: { excited?: boolean; size?: num
         <ellipse cx="80" cy="34" rx="26" ry="14" fill="url(#catGloss)" />
       </svg>
 
-      <span className="cat-heart" style={{ animationDelay: "0s" }}>❤</span>
-      <span className="cat-heart" style={{ animationDelay: "1.1s", left: "70%" }}>💙</span>
-      <span className="cat-heart" style={{ animationDelay: "2.2s", left: "30%" }}>❤</span>
+      {size >= 90 && (
+        <>
+          <span className="cat-heart" style={{ animationDelay: "0s" }}>❤</span>
+          <span className="cat-heart" style={{ animationDelay: "1.1s", left: "70%" }}>💙</span>
+          <span className="cat-heart" style={{ animationDelay: "2.2s", left: "30%" }}>❤</span>
+        </>
+      )}
     </div>
   );
 }
