@@ -236,7 +236,7 @@ export function SceneReasons() {
         {reasons.map((r, i) => (
           <Reveal key={r} delay={i * 90} className={i === reasons.length - 1 ? "col-span-2 sm:col-span-3" : ""}>
             <div className="reason-card">
-              <BlueCat size={46} mood={REASON_MOODS[i % REASON_MOODS.length]} />
+              <BlueCat size={46} mood={REASON_MOODS[i % REASON_MOODS.length] ?? "love"} />
               <span className="reason-index">{String(i + 1).padStart(2, "0")}</span>
               <span className="font-display text-lg leading-snug">{r}</span>
             </div>
