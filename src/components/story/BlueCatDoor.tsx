@@ -103,9 +103,9 @@ export function BlueCat({
 
       {size >= 90 && (
         <>
-          <span className="cat-heart" style={{ animationDelay: "0s" }}>❤</span>
-          <span className="cat-heart" style={{ animationDelay: "1.1s", left: "70%" }}>💙</span>
-          <span className="cat-heart" style={{ animationDelay: "2.2s", left: "30%" }}>❤</span>
+          <span className="cat-heart" style={{ animationDelay: "0s" }}>{cfg.hearts[0]}</span>
+          <span className="cat-heart" style={{ animationDelay: "1.1s", left: "70%" }}>{cfg.hearts[1]}</span>
+          <span className="cat-heart" style={{ animationDelay: "2.2s", left: "30%" }}>{cfg.hearts[2]}</span>
         </>
       )}
     </div>
