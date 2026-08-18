@@ -2,7 +2,10 @@ import { useState } from "react";
 import { Reveal, Scene, SceneLabel } from "./Reveal";
 import { getAmbience } from "@/lib/audio";
 import { chapterOne, discoveryCards, her } from "@/story/content";
-import { BlueCat, BlueCatDoor } from "./BlueCatDoor";
+import { BlueCat, BlueCatDoor, type CatMood } from "./BlueCatDoor";
+
+/** Scene 03 cards: A Moment, A Smile, A Conversation, A Memory, A Secret */
+const CARD_MOODS: CatMood[] = ["moment", "smile", "conversation", "memory", "secret"];
 
 /** SCENE 02 — CURIOSITY */
 export function SceneCuriosity() {
@@ -61,7 +64,7 @@ export function SceneDiscovery() {
               onClick={() => toggle(i)}
               className={`memory-card ${isOpen ? "is-open" : ""} ${i === 4 ? "col-span-2 sm:col-span-1" : ""}`}
             >
-              <BlueCat size={52} excited={isOpen} />
+              <BlueCat size={52} excited={isOpen} mood={CARD_MOODS[i] ?? "moment"} />
               <span className="card-title">{c.title}</span>
               <span className="card-body">
                 {isOpen ? c.back : c.front}
@@ -74,6 +77,7 @@ export function SceneDiscovery() {
 
       <BlueCatDoor
         line="Hey Ehasni… there's something waiting behind this door. ❤️"
+        mood="secret"
         message="Behind every little door in this story, there's a piece of how much you mean to me."
       />
 

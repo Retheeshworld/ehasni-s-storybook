@@ -3,7 +3,10 @@ import { Reveal, Scene, SceneLabel } from "./Reveal";
 import { PhotoViewer } from "./PhotoViewer";
 import { getAmbience } from "@/lib/audio";
 import { doors, happyCards, letter, photos, reasons } from "@/story/content";
-import { BlueCat, BlueCatDoor } from "./BlueCatDoor";
+import { BlueCat, BlueCatDoor, type CatMood } from "./BlueCatDoor";
+
+/** Scene 09 doors: A Memory, A Secret, A Surprise */
+const DOOR_MOODS: CatMood[] = ["memory", "secret", "surprise"];
 
 /** SCENE 05 — THE MEMORY MONTAGE */
 export function SceneMontage() {
@@ -164,7 +167,7 @@ export function SceneDoors({ onSecret }: { onSecret: () => void }) {
               }}
             >
               <span className="door-panel">
-                <BlueCat size={58} excited={isOpen} />
+                <BlueCat size={58} excited={isOpen} mood={DOOR_MOODS[i] ?? "memory"} />
                 <span className="text-2xl">🚪</span>
                 <span className="mt-2 block text-[0.65rem] uppercase tracking-[0.3em] text-[var(--muted-ink)]">
                   Door {d.n}
@@ -218,6 +221,9 @@ export function SceneSecretRoom({ unlocked }: { unlocked: boolean }) {
   );
 }
 
+/** Scene 11 reason cards cycle through warm tones */
+const REASON_MOODS: CatMood[] = ["smile", "love", "moment", "memory", "love", "surprise"];
+
 /** SCENE 11 — REASONS */
 export function SceneReasons() {
   return (
@@ -230,7 +236,7 @@ export function SceneReasons() {
         {reasons.map((r, i) => (
           <Reveal key={r} delay={i * 90} className={i === reasons.length - 1 ? "col-span-2 sm:col-span-3" : ""}>
             <div className="reason-card">
-              <BlueCat size={46} />
+              <BlueCat size={46} mood={REASON_MOODS[i % REASON_MOODS.length] ?? "love"} />
               <span className="reason-index">{String(i + 1).padStart(2, "0")}</span>
               <span className="font-display text-lg leading-snug">{r}</span>
             </div>
@@ -240,6 +246,7 @@ export function SceneReasons() {
 
       <BlueCatDoor
         line="One last door… this one is from Retheesh. ❤️"
+        mood="love"
         doorLabel="A door from Retheesh"
         message="Happy birthday, Ehasni. You are my favorite reason to smile — today and every chapter after this."
       />
